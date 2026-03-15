@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #0A0A0F;
+    --accent: #C8F542;
+    --accent-dim: #a8d032;
+    --surface: #13131A;
+    --border: #1E1E2E;
+    --muted: #6B6B8A;
+    --foreground: #E8E8F0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    direction: rtl;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--foreground);
+    font-family: var(--font-heebo), 'Heebo', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+  }
+
+  /* Focus ring */
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Shimmer skeleton animation */
+  .skeleton {
+    @apply rounded bg-surface relative overflow-hidden;
+    background: linear-gradient(
+      90deg,
+      #13131A 25%,
+      #1a1a24 50%,
+      #13131A 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Accent glow effect */
+  .accent-glow {
+    box-shadow: 0 0 20px rgba(200, 245, 66, 0.15);
+  }
+
+  /* Neon border */
+  .neon-border {
+    border: 1px solid rgba(200, 245, 66, 0.3);
+    box-shadow: 0 0 10px rgba(200, 245, 66, 0.1);
+  }
+
+  /* Card base */
+  .card {
+    @apply bg-surface border border-border rounded-lg overflow-hidden transition-all duration-300;
+  }
+
+  .card:hover {
+    border-color: rgba(200, 245, 66, 0.3);
+    box-shadow: 0 4px 24px rgba(200, 245, 66, 0.08);
+  }
+
+  /* Button base — min 44px touch target */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2 rounded text-sm font-medium transition-all duration-200 cursor-pointer select-none;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-bg hover:bg-accent-dim active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent border border-border text-foreground hover:border-accent hover:text-accent active:scale-95;
+  }
+
+  .btn-danger {
+    @apply btn bg-transparent border border-red-800 text-red-400 hover:bg-red-950 active:scale-95;
+  }
+
+  /* Tag chip */
+  .tag {
+    @apply inline-flex items-center px-3 py-1 text-xs rounded-full bg-border text-muted transition-colors;
+  }
+
+  .tag-active {
+    @apply inline-flex items-center px-3 py-1 text-xs rounded-full text-accent;
+    background-color: rgba(200, 245, 66, 0.1);
+    border: 1px solid rgba(200, 245, 66, 0.3);
+  }
+
+  /* Input base */
+  .input {
+    @apply w-full min-h-[44px] px-4 py-2 bg-surface border border-border rounded text-foreground text-base placeholder-muted transition-colors;
+  }
+
+  .input:focus {
+    border-color: rgba(200, 245, 66, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(200, 245, 66, 0.08);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Gallery responsive grid */
+  .gallery-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  @media (min-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}
