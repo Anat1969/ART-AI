@@ -25,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl" className={heebo.variable}>
+      <head>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://appofapp-gh.vercel.app/ai-menu.js" data-auto></script>
+      </head>
       <body className="font-heebo bg-bg text-foreground antialiased min-h-screen">
         {children}
       </body>
