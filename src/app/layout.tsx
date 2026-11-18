@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/Navbar";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <script src="https://appofapp-gh.vercel.app/ai-menu.js" data-auto></script>
       </head>
       <body className="font-heebo bg-bg text-foreground antialiased min-h-screen">
+        <Navbar />
         {children}
       </body>
     </html>
