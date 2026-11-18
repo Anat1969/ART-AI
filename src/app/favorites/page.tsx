@@ -1,13 +1,7 @@
-import { redirect } from 'next/navigation'
 import { getFavorites } from '@/lib/actions/favorites'
 import { FavoritesBoard } from '@/components/FavoritesBoard'
-import { createClient } from '@/lib/supabase/server'
 
 export default async function FavoritesPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) redirect('/auth/login')
 
   const { data: artworks, error } = await getFavorites()
 
