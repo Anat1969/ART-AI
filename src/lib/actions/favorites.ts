@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { Favorite, FavoriteInsert, ArtworkWithGallery } from '@/types/database'
+import { FavoriteInsert, ArtworkWithGallery } from '@/types/database'
 
 export async function getFavorites(): Promise<{ data: ArtworkWithGallery[] | null; error: string | null }> {
   try {
