@@ -10,8 +10,8 @@ export async function getFavorites(): Promise<{ data: ArtworkWithGallery[] | nul
     if (!user) return { data: null, error: 'נדרשת התחברות' }
 
     const { data, error } = await supabase
-      .from('favorites')
-      .select('artwork:artworks(*, gallery:galleries(*))')
+      .from('aai_favorites')
+      .select('artwork:aai_artworks(*, gallery:aai_galleries(*))')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
 
@@ -31,7 +31,7 @@ export async function getFavoriteIds(): Promise<{ data: string[] | null; error: 
     if (!user) return { data: [], error: null }
 
     const { data, error } = await supabase
-      .from('favorites')
+      .from('aai_favorites')
       .select('artwork_id')
       .eq('user_id', user.id)
 
@@ -49,17 +49,17 @@ export async function toggleFavorite(artworkId: string): Promise<{ isFavorite: b
     if (!user) return { isFavorite: false, error: 'נדרשת התחברות' }
 
     const { data: existing } = await supabase
-      .from('favorites')
+      .from('aai_favorites')
       .select('id')
       .eq('user_id', user.id)
       .eq('artwork_id', artworkId)
       .single()
 
     if (existing) {
-      await supabase.from('favorites').delete().eq('id', existing.id)
+      await supabase.from('aai_favorites').delete().eq('id', existing.id)
       return { isFavorite: false, error: null }
     } else {
-      await supabase.from('favorites').insert({ user_id: user.id, artwork_id: artworkId } as FavoriteInsert)
+      await supabase.from('aai_favorites').insert({ user_id: user.id, artwork_id: artworkId } as FavoriteInsert)
       return { isFavorite: true, error: null }
     }
   } catch {

@@ -7,8 +7,8 @@ export async function getArtworks(galleryId?: string): Promise<{ data: ArtworkWi
   try {
     const supabase = await createClient()
     let query = supabase
-      .from('artworks')
-      .select('*, gallery:galleries(*)')
+      .from('aai_artworks')
+      .select('*, gallery:aai_galleries(*)')
       .order('created_at', { ascending: false })
 
     if (galleryId) query = query.eq('gallery_id', galleryId)
@@ -25,8 +25,8 @@ export async function getArtwork(id: string): Promise<{ data: ArtworkWithGallery
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('artworks')
-      .select('*, gallery:galleries(*)')
+      .from('aai_artworks')
+      .select('*, gallery:aai_galleries(*)')
       .eq('id', id)
       .single()
 
@@ -40,7 +40,7 @@ export async function getArtwork(id: string): Promise<{ data: ArtworkWithGallery
 export async function searchArtworks(query: string, tags?: string[], style?: string): Promise<{ data: Artwork[] | null; error: string | null }> {
   try {
     const supabase = await createClient()
-    let q = supabase.from('artworks').select('*')
+    let q = supabase.from('aai_artworks').select('*')
 
     if (query) q = q.or(`title.ilike.%${query}%,topic.ilike.%${query}%,concept.ilike.%${query}%`)
     if (style) q = q.eq('style', style)
@@ -58,7 +58,7 @@ export async function createArtwork(artwork: ArtworkInsert): Promise<{ data: Art
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('artworks')
+      .from('aai_artworks')
       .insert(artwork)
       .select()
       .single()
@@ -74,7 +74,7 @@ export async function updateArtwork(id: string, updates: ArtworkUpdate): Promise
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('artworks')
+      .from('aai_artworks')
       .update(updates)
       .eq('id', id)
       .select()
@@ -90,7 +90,7 @@ export async function updateArtwork(id: string, updates: ArtworkUpdate): Promise
 export async function deleteArtwork(id: string): Promise<{ error: string | null }> {
   try {
     const supabase = await createClient()
-    const { error } = await supabase.from('artworks').delete().eq('id', id)
+    const { error } = await supabase.from('aai_artworks').delete().eq('id', id)
     if (error) return { error: error.message }
     return { error: null }
   } catch {

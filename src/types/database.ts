@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      galleries: {
+      aai_galleries: {
         Row: {
           id: string
           name: string
@@ -42,7 +42,7 @@ export interface Database {
         }
         Relationships: []
       }
-      artworks: {
+      aai_artworks: {
         Row: {
           id: string
           gallery_id: string | null
@@ -90,12 +90,12 @@ export interface Database {
             foreignKeyName: "artworks_gallery_id_fkey"
             columns: ["gallery_id"]
             isOneToOne: false
-            referencedRelation: "galleries"
+            referencedRelation: "aai_galleries"
             referencedColumns: ["id"]
           }
         ]
       }
-      favorites: {
+      aai_favorites: {
         Row: {
           id: string
           user_id: string
@@ -119,7 +119,7 @@ export interface Database {
             foreignKeyName: "favorites_artwork_id_fkey"
             columns: ["artwork_id"]
             isOneToOne: false
-            referencedRelation: "artworks"
+            referencedRelation: "aai_artworks"
             referencedColumns: ["id"]
           },
           {
@@ -145,16 +145,16 @@ export interface Database {
 }
 
 // Convenience types
-export type Gallery = Database['public']['Tables']['galleries']['Row']
-export type GalleryInsert = Database['public']['Tables']['galleries']['Insert']
-export type GalleryUpdate = Database['public']['Tables']['galleries']['Update']
+export type Gallery = Database['public']['Tables']['aai_galleries']['Row']
+export type GalleryInsert = Database['public']['Tables']['aai_galleries']['Insert']
+export type GalleryUpdate = Database['public']['Tables']['aai_galleries']['Update']
 
-export type Artwork = Database['public']['Tables']['artworks']['Row']
-export type ArtworkInsert = Database['public']['Tables']['artworks']['Insert']
-export type ArtworkUpdate = Database['public']['Tables']['artworks']['Update']
+export type Artwork = Database['public']['Tables']['aai_artworks']['Row']
+export type ArtworkInsert = Database['public']['Tables']['aai_artworks']['Insert']
+export type ArtworkUpdate = Database['public']['Tables']['aai_artworks']['Update']
 
-export type Favorite = Database['public']['Tables']['favorites']['Row']
-export type FavoriteInsert = Database['public']['Tables']['favorites']['Insert']
+export type Favorite = Database['public']['Tables']['aai_favorites']['Row']
+export type FavoriteInsert = Database['public']['Tables']['aai_favorites']['Insert']
 
 // Extended types with relations
 export type ArtworkWithGallery = Artwork & {

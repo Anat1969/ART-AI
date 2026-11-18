@@ -7,7 +7,7 @@ export async function getGalleries(): Promise<{ data: GalleryWithArtworks[] | nu
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('galleries')
+      .from('aai_galleries')
       .select('*')
       .order('created_at', { ascending: false })
 
@@ -22,8 +22,8 @@ export async function getGalleryBySlug(slug: string): Promise<{ data: GalleryWit
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('galleries')
-      .select('*, artworks(*)')
+      .from('aai_galleries')
+      .select('*, aai_artworks(*)')
       .eq('slug', slug)
       .single()
 
@@ -38,7 +38,7 @@ export async function createGallery(gallery: GalleryInsert): Promise<{ data: Gal
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('galleries')
+      .from('aai_galleries')
       .insert(gallery)
       .select()
       .single()
@@ -54,7 +54,7 @@ export async function updateGallery(id: string, updates: GalleryUpdate): Promise
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('galleries')
+      .from('aai_galleries')
       .update(updates)
       .eq('id', id)
       .select()
@@ -70,7 +70,7 @@ export async function updateGallery(id: string, updates: GalleryUpdate): Promise
 export async function deleteGallery(id: string): Promise<{ error: string | null }> {
   try {
     const supabase = await createClient()
-    const { error } = await supabase.from('galleries').delete().eq('id', id)
+    const { error } = await supabase.from('aai_galleries').delete().eq('id', id)
     if (error) return { error: error.message }
     return { error: null }
   } catch {
